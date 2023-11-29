@@ -66,6 +66,7 @@ class RSI(object):
         self.prev_value = value
         if self.maintain:
             self.rsi = self.rsi[1:]
+        return self.rsi[-1]
 
     def target_rsi(self, target_rsi: float) -> float:
         """
