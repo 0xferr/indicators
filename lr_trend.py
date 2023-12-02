@@ -12,13 +12,23 @@ trend_params = namedtuple(
 
 
 class LinearRegressionTrend(object):
+    """
+    Adaptive trend detetion using Linear Regression
+    src: OHLC price data np.ndarray
+    min_trend_length: the shortest period of trend
+    max_trend_length: the longest period of trend
+    width: width of trend in standard deviation
+    max_deviation: trend is considered broken when price leaves max_deviation channel
+
+    """
+
     def __init__(
         self,
         src: np.ndarray,
-        min_trend_length=20,
-        max_trend_length=100,
-        width=2,
-        max_deviation=3,
+        min_trend_length: int = 20,
+        max_trend_length: int = 100,
+        width: int = 2,
+        max_deviation: int = 3,
     ):
         # input
         self.src = src
@@ -41,7 +51,8 @@ class LinearRegressionTrend(object):
         # vars
         self._no_new_trend = False
 
-    # intertal calculation metods
+    ### Intertal calculation metods
+
     def _std_for_lr(self, src, slope, intercept):
         """returns standard deviation of price from linear regression"""
         n = len(src)
